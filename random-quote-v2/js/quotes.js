@@ -51,4 +51,4 @@ var quotes = [
 		tags: "Chess"
 	},
 
-];
+]
