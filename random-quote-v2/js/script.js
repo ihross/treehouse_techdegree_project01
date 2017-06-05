@@ -1,10 +1,22 @@
-// Declared variables
-var timeoutID;
+// Global variables
+var timeoutID;				// Timer for the page to update
+var tempArray = [];		// Array to avoid repetition
 
-// Returns 1 of the 7 objects in quotes.js
+// Returns 1 of the 7 objects in quotes.js without repeating
 function getRandomQuote() {
 	var randNum = Math.floor(Math.random() * quotes.length);
-	return quotes[randNum];
+	var randQuote = quotes[randNum];
+
+	// Puts the quote objects in a temporary array to avoid repetition
+	tempArray.push(quotes[randNum]);
+	quotes.splice(randNum, 1);
+
+	// After emptying array the count starts over
+	if (quotes.length === 0) {
+		quotes = tempArray;		// Original quotes array is refilled
+		tempArray = [];				// Temporary array goes back to empty
+	}
+	return randQuote;
 }
 
 // Randomizes the color of the background and the button
@@ -19,7 +31,7 @@ function changeColor() {
 
 // Prints out the quote
 function printQuote() {
-	var quote = getRandomQuote();
+	var quote = getRandomQuote();	// Assigns random quote object
 	var message = '';
 
 	// Quote display
@@ -39,29 +51,10 @@ function printQuote() {
 
 	document.getElementById('quote-box').innerHTML = message;
 	changeColor();
-	var timeoutID = window.setTimeout(printQuote, 20000);
 }
 
-// Runs the printQuote() function every 20 seconds
-var timeoutID = window.setTimeout(printQuote, 20000);
-
-/*
-function getRandomQuote() {
-	do {
-		randomNumber = Math.floor(Math.random() * quotes.length);
-		currentQuote = usedQuotes.indexOf(randomNumber);
-
-		if (usedQuotes.length === quotes.length) {
-			usedQuotes = [];
-		}
-	}
-	while (currentQuote >= 0);
-
-	usedQuotes.push(currentQuote);
-	return quotes[randomNumber];
-}
-
-*/
+// Runs the printQuote() function every 30 seconds
+var timeoutID = window.setTimeout(printQuote, 30000);
 
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
