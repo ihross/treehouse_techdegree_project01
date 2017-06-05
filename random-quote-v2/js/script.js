@@ -1,7 +1,5 @@
 // Declared variables
-var currentQuote;
-var usedQuotes = [];
-
+var timeoutID;
 
 // Returns 1 of the 7 objects in quotes.js
 function getRandomQuote() {
@@ -9,8 +7,7 @@ function getRandomQuote() {
 	return quotes[randNum];
 }
 
-
-// Randomizes the color of the background and button
+// Randomizes the color of the background and the button
 function changeColor() {
 	var color = 'rgb(';
 	color += Math.floor(Math.random() * 256) + ',';
@@ -42,9 +39,11 @@ function printQuote() {
 
 	document.getElementById('quote-box').innerHTML = message;
 	changeColor();
+	var timeoutID = window.setTimeout(printQuote, 20000);
 }
 
-
+// Runs the printQuote() function every 20 seconds
+var timeoutID = window.setTimeout(printQuote, 20000);
 
 /*
 function getRandomQuote() {
@@ -62,9 +61,6 @@ function getRandomQuote() {
 	return quotes[randomNumber];
 }
 
-function printQuote() {
-	var quoteObj = getRandomQuote();
-}
 */
 
 // event listener to respond to "Show another quote" button clicks
